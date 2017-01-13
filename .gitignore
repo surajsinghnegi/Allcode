@@ -1,0 +1,18 @@
+$from   = 'USD'; 
+$to     = 'INR';
+$url = 'http://finance.yahoo.com/d/quotes.csv?e=.csv&f=sl1d1t1&s='. $from . $to .'=X';
+
+$filehandler = @fopen($url, 'r');
+
+if ($filehandler) {
+
+$data = fgets($filehandler, 4096);
+
+    fclose($filehandler);
+}
+
+$InfoData = explode(',',$data); 
+
+$britishpoundValue = $InfoData[1];
+
+echo '1 GBR = '.$britishpoundValue.' INR';
