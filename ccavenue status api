@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Non-Seamless-kit</title>
+</head>
+<body>
+<center>
+
+<?php include('Crypto.php') ;?>
+<?php 
+
+  error_reporting(0);
+  
+  $merchant_data='xxxxxx';
+  $working_key='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';//Shared by CCAVENUES
+  $access_code='xxxxxxxxxxxxx';//Shared by CCAVENUES
+  // foreach ($_POST as $key => $value){
+  //   $merchant_data.=$key.'='.$value.'&';
+  // }
+  $data1 = array(
+         'order_no'=>'LIVEASTROLOGY170601072557');
+  $merchant_data = json_encode($data1);
+  $encrypted_data=encrypt($merchant_data,$working_key); // Method for encrypting the data.
+
+?>
+<form method="post" name="redirect" action="https://api.ccavenue.com/apis/servlet/DoWebTrans"> 
+<?php
+echo "<input type=hidden name='enc_request' value=$encrypted_data>";
+echo "<input type=hidden name='access_code' value=$access_code>";
+echo "<input type=hidden name='command' value='orderStatusTracker'>";
+echo "<input type=hidden name='request_type' value='JSON'>";
+echo "<input type=hidden name='response_type' value='JSON'> ";
+echo "<input type=hidden name='version' value='1.1'> ";
+
+?>
+</form>
+ <div class="se-pre-con" style='text-align: center;margin-top: 150px'><img src="../CenterLogin/img/Preloader.gif" >
+
+<h3>Please Wait...</h3>
+
+<small>Please Don't refresh or press back button</small>
+</div>
+
+</center>
+<script language='javascript'>document.redirect.submit();</script>
+</body>
+</html>
+
